@@ -3,7 +3,7 @@ const form = document.querySelector('#form');
 const pageDiv = document.querySelector('#paging');
 const alertDiv = document.getElementById('alert');
 
-const registersPerPage = 20;
+const registersPerPage = 30;
 let totalPages;
 let iterator;
 let currentPage = 1;
@@ -18,7 +18,7 @@ function validateForm(event) {
         return;
     }
     else{
-        searchImages(term);
+        searchImages();
     }
 }
 
@@ -36,7 +36,8 @@ function showAlert(message) {
     }
 }
 
-async function searchImages(term) {
+async function searchImages() {
+    const term = document.querySelector('#term').value;
     const key = '1732750-d45b5378879d1e877cd1d35a6';
     const url = `https://pixabay.com/api/?key=${key}&q=${term}&per_page=${registersPerPage}&page=${currentPage}`;
     const response = await fetch(url);
@@ -52,7 +53,7 @@ function showImages(images) {
     images.forEach( image => {
         const { previewURL, likes, views, largeImageURL } = image;
         result.innerHTML += `
-            <div class="card mt-4 col-xl-3 col-lg-4 col-md-6 col-sm-12" style="width: 12rem;">
+            <div class="card mt-4" style="width: 12rem;">
                 <img class="card-img-top" src="${previewURL}" alt='image from pixabay' litle='image from pixabay'>
                 <div class="card-body">
                     <p class="font-weight-bold card-text d-flex justify-content-between"> 
@@ -67,14 +68,14 @@ function showImages(images) {
         `;
     });
     cleanHtml(pageDiv);
-    printPages();
+    printPagesIterator();
 }
 
 function calcPages(total) {
     return parseInt( Math.ceil( total / registersPerPage ));
 }
 
-function printPages() {
+function printPagesIterator() {
     iterator = createPageIterator(totalPages);
     while(true) {
         const { value, done} = iterator.next();
@@ -93,7 +94,7 @@ function printPages() {
     }
 }
 
-function *createPageIterator(total) {
+function* createPageIterator(total) {
     for (let i = 1; i <= total; i++ ) {
         yield i;
     }

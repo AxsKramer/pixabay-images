@@ -1,6 +1,7 @@
 body{
     background: linear-gradient(to top, #4CA1AF, #2C3E50);
-    height: 100vh;
+    min-height: 100vh;
+    max-height: fit-content;
 }
 
 img{
