@@ -1,2 +1,2 @@
-# Pixabay Images
-Project that shows images related to the input was entered by the user, using the pixabay api.
+# Search Images Using Pixabay Images API
+Project that shows images related to the term that was entered by the user.
